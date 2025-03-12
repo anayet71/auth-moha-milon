@@ -4,22 +4,27 @@ import { AuthContext } from '../providers/AuthProvider';
 
 const Navbar = () => {
 
-    const {user , signOutUser} = useContext(AuthContext)
+    const { user, signOutUser } = useContext(AuthContext)
 
     console.log(name)
 
-    const handleSignOut =() =>{
+    const handleSignOut = () => {
         signOutUser()
-        .then(() =>{
-            console.log('user sign out successfully')
-        })
-        .catch(error => console.log('ERROR', error.message))
+            .then(() => {
+                console.log('user sign out successfully')
+            })
+            .catch(error => console.log('ERROR', error.message))
     }
 
     const links = <>
         <li><NavLink to={'/'}> Home</NavLink></li>
         <li><NavLink to={'/login'}> Login</NavLink></li>
         <li><NavLink to={'/register'}> Register</NavLink></li>
+        {
+            user && <>
+                <li><NavLink to={'/orders'}> Orders</NavLink></li>
+            </>
+        }
     </>
 
     return (
@@ -39,16 +44,16 @@ const Navbar = () => {
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
-                {links}
+                    {links}
                 </ul>
             </div>
             <div className="navbar-end">
                 {
-                    user? 
-                    <> <a className="btn">{user?.email}</a>
-                    <a onClick={handleSignOut} className='btn'> Sign Out</a>
-                    </>
-                    :<><Link className='btn' to={'/login'}>Log in</Link></>
+                    user ?
+                        <> <a className="btn">{user?.email}</a>
+                            <a onClick={handleSignOut} className='btn'> Sign Out</a>
+                        </>
+                        : <><Link className='btn' to={'/login'}>Log in</Link></>
                 }
             </div>
         </div>

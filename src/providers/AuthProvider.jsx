@@ -44,7 +44,6 @@ const AuthProvider = ({children}) => {
     // })
 
     const authInfo = {
-        name: 'my name is Anayet',
         user,
         createUser,
         signInUser,
